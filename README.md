@@ -2,7 +2,7 @@
 
 FirstPass is an employer-first career platform. Candidates create professional profiles. Employers search those profiles and send interview invitations. Candidates review each invitation and respond without submitting a traditional job application.
 
-This repository is the project home for FirstPass, developed by Lauren A. Rivero for MMC 6950: Capstone — Web Design and Online Communication at the University of Florida.
+This repository is the project home for FirstPass, developed by Lauren A. Rivero for MMC 6950: Capstone: Web Design and Online Communication at the University of Florida.
 
 
 ## Why it exists
