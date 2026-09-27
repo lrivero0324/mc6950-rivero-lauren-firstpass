@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Find candidates — FirstPass</title>
+  <link rel="stylesheet" href="css/app.css" />
+</head>
+<body>
+  <header class="site-header" data-header></header>
+  <main class="page">
+    <p id="notice" class="notice" hidden></p>
+    <div class="page-head">
+      <div>
+        <h1>Find matching candidates</h1>
+        <p class="lede">Filter by skills and preferences, then invite with transparent role details.</p>
+      </div>
+    </div>
+    <form id="search-form" class="filters" action="search.html" method="get">
+      <label>
+        Skill
+        <input name="skill" type="text" placeholder="React" />
+      </label>
+      <label>
+        Location
+        <input name="location" type="text" placeholder="Miami" />
+      </label>
+      <label>
+        Preferred role
+        <input name="role" type="text" placeholder="Frontend" />
+      </label>
+      <label>
+        Work arrangement
+        <select name="work_arrangement">
+          <option value="">Any</option>
+          <option value="remote">Remote</option>
+          <option value="hybrid">Hybrid</option>
+          <option value="onsite">On-site</option>
+        </select>
+      </label>
+      <label>
+        Salary budget (max)
+        <input name="salary_max" type="number" min="1" step="1" placeholder="90000" />
+      </label>
+      <div class="actions">
+        <button class="primary" type="submit">Search</button>
+      </div>
+    </form>
+    <p id="result-count" class="result-count"></p>
+    <div id="results"></div>
+  </main>
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <span>FirstPass</span>
+      <span>MMC6950</span>
+    </div>
+  </footer>
+  <script src="js/store.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/search.js"></script>
+</body>
+</html>

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Assignment 4.1 Progress Report — FirstPass</title>
+  <style>
+    body {
+      margin: 0;
+      color: #1a1a1a;
+      font: 12pt/1.55 "Times New Roman", Times, serif;
+      background: #fff;
+    }
+    .page { max-width: 8.5in; margin: 0 auto; padding: 1in 1in 1.15in; }
+    header { text-align: center; margin-bottom: 1.4em; }
+    h1 { font-size: 16pt; margin: 0 0 0.7em; }
+    .meta { margin: 0; line-height: 1.4; }
+    h2 { font-size: 13pt; margin: 1.3em 0 0.45em; }
+    p { margin: 0 0 0.85em; text-align: justify; }
+    @media print {
+      .page { padding: 0.7in 0.85in; }
+    }
+  </style>
+</head>
+<body>
+  <article class="page">
+    <header>
+      <h1>FirstPass Functional Prototype Progress Report</h1>
+      <p class="meta">Lauren A. Rivero</p>
+      <p class="meta">University of Florida</p>
+      <p class="meta">MMC 6950: Capstone — Web Design and Online Communication</p>
+      <p class="meta">Mr. Efren Vasquez</p>
+      <p class="meta">September 25, 2026</p>
+    </header>
+
+    <h2>Progress</h2>
+    <section id="body">
+      <p>
+        This report describes the functional prototype I built for FirstPass during the two weeks given for Assignment 4.1. It is a set of linked HTML pages and JavaScript files in this repository. The work carries out the critical hiring loop from my Assignment 2.1 minimum viable product. The stylesheet only keeps the pages readable. Visual design is still ahead.
+      </p>
+      <p>
+        The MVP is one loop. A candidate saves a searchable profile. An employer finds and reviews that person. The employer sends an interview invitation with the role, a summary, a salary range, the work arrangement, a reason for interest, and a deadline. The candidate responds before that deadline. I built that loop and scaffolded every page it needs: sign-in, candidate profile, find candidates, candidate preview, send invitation, invitation inbox, invitation detail, and sent invitations. Those pages follow the Assignment 2.1 wireframes, including the expired invitation and the employer status list.
+      </p>
+      <p>
+        Profiles are the piece the proof of concept did not let a candidate edit. Assignment 1.2 seeded candidates in Django, and that API was read-only. The prototype adds the form. Required fields are name, headline, location, at least one skill, years of experience, education, preferred role, salary floor, work arrangement, and a summary. The portfolio is an optional URL, because file upload is outside the MVP. A profile stays out of search until those fields are valid. A new candidate can register on the sign-in page and start from a blank form. Seeded profiles are already complete, so search returns people on the first visit.
+      </p>
+      <p>
+        Search, preview, and the invitation form are the employer half of the loop. Filters are skill, location, preferred role, work arrangement, and a salary budget. The budget keeps candidates whose salary floor is at or below the amount entered. Cards open a read-only preview, and the primary action there is Invite to interview. The send page refuses the invitation if a transparency field is missing, if the salary maximum is below the minimum, or if the response window is outside 1 to 30 days. The same employer also cannot send a second invitation while an earlier one for that candidate is still pending or saved. A successful send opens Sent invitations.
+      </p>
+      <p>
+        The inbox, the detail page, and the sent list share five statuses: pending, saved, accepted, declined, and expired. Inbox filters are All, Active, Saved, and Past. Active means pending. Past holds accepted, declined, and expired items. On the detail page the candidate can Accept Interview, Save for Later, or Decline. Accept and decline are final, and accepting means the person will interview, not that they have taken a job. Save for Later sets the status to saved and does not move the deadline, matching the proof of concept rule that a save is not a final response. When the deadline has passed, the next page load marks a pending or saved invitation expired and disables the three actions. Expiration outranks the saved label, so that invitation leaves Saved and shows under Past. Both sides then see the same status.
+      </p>
+      <p>
+        Records follow the Assignment 1.2 models and live in browser storage, so the prototype runs without Django. Sign-in is kept per browser window, which let me use one window as the employer and another as the candidate against the same invitations. That sign-in is not account security. Seeded accounts share a demo password, and Reset demo data restores the original records. A Node test checks search, validation, and status so those rules are not proven only by clicking through the pages.
+      </p>
+      <p>
+        Two limits shaped the build. The proof-of-concept API could search and create invitations, but it could not update a candidate, and the React app kept search, invite, and response on one screen. Separate HTML pages had to keep the signed-in person and the invitations across ordinary links. I also had to decide what a saved invitation means after the deadline. Leaving it under Saved would have broken the rule that saving does not extend the deadline, so each read checks the timestamp instead of relying on a timer. There is still no email when a deadline passes, and the preview uses initials because photo upload is outside the MVP.
+      </p>
+      <p>
+        Messaging, scheduling, recommendations, and résumé upload stay out of scope. Next I will move these same checks onto the Django API and split the React proof of concept into the routes these pages already use.
+      </p>
+    </section>
+  </article>
+</body>
+</html>

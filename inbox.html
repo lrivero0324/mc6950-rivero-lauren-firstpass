@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Invitation inbox — FirstPass</title>
+  <link rel="stylesheet" href="css/app.css" />
+</head>
+<body>
+  <header class="site-header" data-header></header>
+  <main class="page">
+    <p id="notice" class="notice" hidden></p>
+    <div class="page-head">
+      <div>
+        <h1>Invitation inbox</h1>
+        <p class="lede">Review invitations with salary, arrangement, and deadline already included.</p>
+      </div>
+    </div>
+    <nav class="tabs" aria-label="Inbox filters">
+      <a href="inbox.html?view=all" data-view="all">All</a>
+      <a href="inbox.html?view=active" data-view="active">Active</a>
+      <a href="inbox.html?view=saved" data-view="saved">Saved</a>
+      <a href="inbox.html?view=past" data-view="past">Past</a>
+    </nav>
+    <p id="inbox-count" class="result-count"></p>
+    <div id="inbox-list"></div>
+  </main>
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <span>FirstPass</span>
+      <span>MMC6950</span>
+    </div>
+  </footer>
+  <script src="js/store.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/inbox.js"></script>
+</body>
+</html>

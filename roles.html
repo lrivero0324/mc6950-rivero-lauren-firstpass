@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Roles — FirstPass</title>
+  <link rel="stylesheet" href="css/app.css" />
+</head>
+<body>
+  <header class="site-header" data-header></header>
+  <main class="page">
+    <p id="notice" class="notice" hidden></p>
+    <div class="page-head">
+      <div>
+        <h1>Saved roles</h1>
+        <p class="lede">Create the openings you hire for once. When you invite a candidate, pick a role and only write why they fit.</p>
+      </div>
+      <button type="button" class="primary" id="new-role">New role</button>
+    </div>
+
+    <div class="roles-layout">
+      <div id="roles-list" class="roles-list"></div>
+      <form id="role-form" class="panel role-form" hidden>
+        <input type="hidden" name="id" value="" />
+        <h2 id="role-form-title">New role</h2>
+        <p class="meta" id="role-form-help">These details fill the invitation form so you are not retyping the same opening for every candidate.</p>
+        <label>
+          Role title
+          <input name="title" type="text" required />
+          <span class="field-error" data-error-for="title"></span>
+        </label>
+        <label>
+          Role summary
+          <textarea name="summary" required></textarea>
+          <span class="field-error" data-error-for="summary"></span>
+        </label>
+        <div class="grid-2">
+          <label>
+            Salary min
+            <input name="salary_min" type="number" min="1" step="1" required />
+            <span class="field-error" data-error-for="salary_min"></span>
+          </label>
+          <label>
+            Salary max
+            <input name="salary_max" type="number" min="1" step="1" required />
+            <span class="field-error" data-error-for="salary_max"></span>
+          </label>
+          <label>
+            Work arrangement
+            <select name="work_arrangement" required>
+              <option value="remote">Remote</option>
+              <option value="hybrid">Hybrid</option>
+              <option value="onsite">On-site</option>
+            </select>
+            <span class="field-error" data-error-for="work_arrangement"></span>
+          </label>
+          <label>
+            Default respond within (days)
+            <input name="default_expires_in_days" type="number" min="1" max="30" step="1" value="7" required />
+            <span class="field-error" data-error-for="default_expires_in_days"></span>
+          </label>
+        </div>
+        <div class="actions">
+          <button class="primary" type="submit">Save role</button>
+          <button type="button" class="button" id="cancel-role">Cancel</button>
+        </div>
+      </form>
+    </div>
+  </main>
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <span>FirstPass</span>
+      <span>MMC6950</span>
+    </div>
+  </footer>
+  <script src="js/store.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/roles.js"></script>
+</body>
+</html>

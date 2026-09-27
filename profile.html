@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Your profile — FirstPass</title>
+  <link rel="stylesheet" href="css/app.css" />
+</head>
+<body>
+  <header class="site-header" data-header></header>
+  <main class="page">
+    <p id="notice" class="notice" hidden></p>
+    <h1>Your profile</h1>
+    <p class="lede" id="profile-lede">Employers search this information. Preferences should match the work you want.</p>
+    <p id="profile-state" class="meta"></p>
+    <form id="profile-form" class="panel">
+      <div class="grid-2">
+        <label>
+          Full name
+          <input name="full_name" type="text" required />
+          <span class="field-error" data-error-for="full_name"></span>
+        </label>
+        <label>
+          Headline
+          <input name="headline" type="text" placeholder="Junior frontend developer" required />
+          <span class="field-error" data-error-for="headline"></span>
+        </label>
+        <label>
+          Location
+          <input name="location" type="text" placeholder="Miami, FL" required />
+          <span class="field-error" data-error-for="location"></span>
+        </label>
+        <label>
+          Preferred role
+          <input name="preferred_role" type="text" required />
+          <span class="field-error" data-error-for="preferred_role"></span>
+        </label>
+        <label>
+          Salary floor
+          <input name="preferred_salary_min" type="number" min="1" step="1" required />
+          <span class="hint">Annual amount in dollars. This is the lowest pay you want employers to consider.</span>
+          <span class="field-error" data-error-for="preferred_salary_min"></span>
+        </label>
+        <label>
+          Work arrangement
+          <select name="preferred_work_arrangement" required>
+            <option value="">Choose one</option>
+            <option value="remote">Remote</option>
+            <option value="hybrid">Hybrid</option>
+            <option value="onsite">On-site</option>
+          </select>
+          <span class="field-error" data-error-for="preferred_work_arrangement"></span>
+        </label>
+      </div>
+      <label>
+        Skills
+        <input name="skills" type="text" placeholder="React, JavaScript, CSS" required />
+        <span class="hint">Separate skills with commas. Employers can filter on these words.</span>
+        <span class="field-error" data-error-for="skills"></span>
+      </label>
+      <div class="grid-2">
+        <label>
+          Experience (years)
+          <input name="experience_years" type="number" min="0" max="60" step="1" required />
+          <span class="field-error" data-error-for="experience_years"></span>
+        </label>
+        <label>
+          Education
+          <input name="education" type="text" required />
+          <span class="field-error" data-error-for="education"></span>
+        </label>
+      </div>
+      <label>
+        Portfolio URL
+        <input name="portfolio_url" type="url" placeholder="https://" />
+        <span class="hint">Optional. File upload is not part of the MVP.</span>
+        <span class="field-error" data-error-for="portfolio_url"></span>
+      </label>
+      <label>
+        Summary
+        <textarea name="summary" required></textarea>
+        <span class="field-error" data-error-for="summary"></span>
+      </label>
+      <div class="actions">
+        <button class="primary" type="submit">Save profile</button>
+      </div>
+    </form>
+  </main>
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <span>FirstPass</span>
+      <span>MMC6950</span>
+    </div>
+  </footer>
+  <script src="js/store.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/profile.js"></script>
+</body>
+</html>

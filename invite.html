@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Send invitation — FirstPass</title>
+  <link rel="stylesheet" href="css/app.css" />
+</head>
+<body>
+  <header class="site-header" data-header></header>
+  <main class="page">
+    <p id="notice" class="notice" hidden></p>
+    <div class="page-head">
+      <div>
+        <h1 id="invite-title">Send interview invitation</h1>
+        <p class="lede">Pick a saved role for the opening details, then write why this candidate fits.</p>
+      </div>
+    </div>
+    <div class="invite-layout">
+      <form id="invite-form" class="panel invite-form">
+        <div class="role-picker">
+          <label>
+            Saved role
+            <select id="job-posting" name="job_posting_id">
+              <option value="">Choose a saved role…</option>
+            </select>
+          </label>
+          <p class="meta role-picker-help">
+            Role title, summary, salary, arrangement, and deadline come from the role.
+            <a href="roles.html">Manage roles</a>
+          </p>
+        </div>
+        <label>
+          Role title
+          <input name="role_title" type="text" required />
+          <span class="field-error" data-error-for="role_title"></span>
+        </label>
+        <label>
+          Role summary
+          <textarea name="role_summary" required></textarea>
+          <span class="field-error" data-error-for="role_summary"></span>
+        </label>
+        <div class="grid-2">
+          <label>
+            Salary min
+            <input name="salary_min" type="number" min="1" step="1" required />
+            <span class="field-error" data-error-for="salary_min"></span>
+          </label>
+          <label>
+            Salary max
+            <input name="salary_max" type="number" min="1" step="1" required />
+            <span class="field-error" data-error-for="salary_max"></span>
+          </label>
+          <label>
+            Work arrangement
+            <select name="work_arrangement" required>
+              <option value="remote">Remote</option>
+              <option value="hybrid">Hybrid</option>
+              <option value="onsite">On-site</option>
+            </select>
+            <span class="field-error" data-error-for="work_arrangement"></span>
+          </label>
+          <label>
+            Respond within (days)
+            <input name="expires_in_days" type="number" min="1" max="30" step="1" value="7" required />
+            <span class="field-error" data-error-for="expires_in_days"></span>
+          </label>
+        </div>
+        <label>
+          Reason for interest
+          <textarea name="reason_for_interest" required placeholder="Why this candidate for this role—keep this personal."></textarea>
+          <span class="hint">This is the only field that should change from invite to invite.</span>
+          <span class="field-error" data-error-for="reason_for_interest"></span>
+        </label>
+        <div class="actions">
+          <button class="primary" id="send-button" type="submit">Send invitation</button>
+          <a class="button" id="cancel-link" href="search.html">Cancel</a>
+        </div>
+      </form>
+      <aside id="candidate-recap" class="panel invite-recap" hidden></aside>
+    </div>
+  </main>
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <span>FirstPass</span>
+      <span>MMC6950</span>
+    </div>
+  </footer>
+  <script src="js/store.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/invite.js"></script>
+</body>
+</html>

@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Sign in — FirstPass</title>
+  <link rel="stylesheet" href="css/app.css?v=20260927e" />
+</head>
+<body class="auth-page">
+  <header class="auth-top">
+    <a class="brand" href="index.html">First<span>Pass</span></a>
+    <div class="auth-top-actions">
+      <button type="button" class="auth-top-link" data-auth-tab="register" aria-selected="false">Create account</button>
+      <button type="button" class="auth-top-btn is-active" data-auth-tab="signin" aria-selected="true">Sign in</button>
+    </div>
+  </header>
+
+  <main class="auth-shell">
+    <section class="auth-visual" aria-hidden="true">
+      <div class="auth-visual-art">
+        <div class="auth-visual-bg"></div>
+        <img class="auth-mark" src="assets/auth-hero.png" alt="" />
+      </div>
+    </section>
+
+    <section class="auth-panel">
+      <div class="auth-panel-inner">
+        <p id="notice" class="notice" hidden></p>
+        <div id="session-banner" class="notice" hidden></div>
+
+        <div data-auth-panel="signin">
+          <h1 class="auth-headline">Welcome to intentional hiring</h1>
+          <p class="auth-sub">Sign in to build a profile employers can find, or to invite candidates with salary and arrangement already clear.</p>
+          <form id="sign-in-form">
+            <label>
+              Email
+              <input id="email" name="email" type="email" autocomplete="username" required />
+            </label>
+            <label>
+              Password
+              <input id="password" name="password" type="password" autocomplete="current-password" required />
+            </label>
+            <p class="field-error" data-error-for="form"></p>
+            <div class="actions auth-submit">
+              <button class="primary auth-submit-btn" type="submit">Sign in</button>
+            </div>
+          </form>
+
+          <details class="demo-drawer" id="demo-drawer">
+            <summary>Try a demo account</summary>
+            <div class="demo-drawer-panel">
+              <p class="meta">Password for every demo account: <strong>demo</strong>. Open a second window to switch roles.</p>
+              <div id="demo-accounts" class="demo-grid"></div>
+              <button type="button" id="reset-demo" class="button-quiet">Reset demo data</button>
+            </div>
+          </details>
+        </div>
+
+        <div data-auth-panel="register" hidden>
+          <h1 class="auth-headline">Create your FirstPass account</h1>
+          <p class="auth-sub">Choose whether you are looking for opportunities or hiring. Each path uses its own account in this prototype.</p>
+          <form id="register-form">
+            <fieldset class="role-pick">
+              <legend>I want to</legend>
+              <label class="role-option">
+                <input type="radio" name="role" value="candidate" checked />
+                <span>
+                  <strong>Find opportunities</strong>
+                  <em>Create a candidate profile employers can search</em>
+                </span>
+              </label>
+              <label class="role-option">
+                <input type="radio" name="role" value="employer" />
+                <span>
+                  <strong>Hire people</strong>
+                  <em>Search candidates and send interview invitations</em>
+                </span>
+              </label>
+            </fieldset>
+            <label>
+              Full name
+              <input name="full_name" type="text" autocomplete="name" required />
+              <span class="field-error" data-error-for="full_name"></span>
+            </label>
+            <label id="company-field" hidden>
+              Company
+              <input name="company" type="text" autocomplete="organization" />
+              <span class="field-error" data-error-for="company"></span>
+            </label>
+            <label>
+              Email
+              <input name="email" type="email" autocomplete="email" required />
+              <span class="field-error" data-error-for="email"></span>
+            </label>
+            <label>
+              Password
+              <input name="password" type="password" autocomplete="new-password" required />
+              <span class="field-error" data-error-for="password"></span>
+            </label>
+            <label>
+              Confirm password
+              <input name="confirm_password" type="password" autocomplete="new-password" required />
+              <span class="field-error" data-error-for="confirm_password"></span>
+            </label>
+            <div class="actions auth-submit">
+              <button class="primary auth-submit-btn" type="submit">Create account</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="auth-legal">
+    <p class="auth-legal-brand">FirstPass <span aria-hidden="true">©</span> 2026</p>
+    <nav class="auth-legal-links" aria-label="Legal">
+      <a href="#">User Agreement</a>
+      <a href="#">Privacy Policy</a>
+      <a href="#">Cookie Policy</a>
+      <a href="#">Accessibility</a>
+    </nav>
+  </footer>
+
+  <script src="js/store.js?v=20260927e"></script>
+  <script src="js/ui.js?v=20260927e"></script>
+  <script src="js/signin.js?v=20260927e"></script>
+</body>
+</html>
