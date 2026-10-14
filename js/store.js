@@ -927,18 +927,10 @@
     const rawSalary = criteria.salary_max;
     const salaryMax =
       rawSalary === "" || rawSalary == null ? null : parseInteger(rawSalary);
-    const alreadyInvited = new Set();
-    if (record && record.user.role === "employer") {
-      record.db.invitations.forEach(function (invitation) {
-        if (invitation.employer_id === record.user.employer_id) {
-          alreadyInvited.add(invitation.candidate_id);
-        }
-      });
-    }
-
+    // Candidates with an open invite still appear in results; the UI shows "Invitation open"
+    // instead of Invite to Interview (see search.js / candidate.js).
     return db.candidates
       .filter((candidate) => candidate.profile_complete)
-      .filter((candidate) => !alreadyInvited.has(candidate.id))
       .filter((candidate) => {
         if (skill && !candidate.skills.some((item) => String(item).toLowerCase().includes(skill))) {
           return false;
@@ -966,6 +958,26 @@
         item.candidate_id === candidateId &&
         (item.status === "pending" || item.status === "saved"),
     );
+  }
+
+  /** Open (pending or saved) invite from the signed-in employer to a candidate, if any. */
+  function getOpenInvitationForCandidate(candidateId) {
+    const record = currentRecord();
+    if (!record || record.user.role !== "employer") return null;
+    const open = openInvitation(record.db, record.user.employer_id, Number(candidateId));
+    return open ? presentInvitation(open, record.db) : null;
+  }
+
+  /** Active inbox count for nav: pending invitations only. */
+  function countActiveInbox() {
+    return listInbox("active").length;
+  }
+
+  /** Employer nav: pending sent invitations awaiting a candidate response. */
+  function countPendingSent() {
+    return listSent().filter(function (item) {
+      return item.status === "pending";
+    }).length;
   }
 
   function listJobPostings() {
@@ -1225,6 +1237,9 @@
     listInbox,
     listSent,
     getInvitation,
+    getOpenInvitationForCandidate,
+    countActiveInbox,
+    countPendingSent,
     respond,
     demoAccounts,
     resetDemoData,

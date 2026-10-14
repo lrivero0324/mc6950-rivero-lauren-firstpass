@@ -2,6 +2,41 @@
   const user = FirstPassUi.requirePage("candidate", "inbox.html");
   if (!user) return;
 
+  const profile = FirstPass.getMyProfile();
+  const list = document.getElementById("inbox-list");
+  const count = document.getElementById("inbox-count");
+  const helper = document.getElementById("inbox-helper");
+
+  if (!profile || !profile.profile_complete) {
+    if (helper) helper.hidden = true;
+    count.hidden = true;
+    const tabs = document.querySelector(".tabs");
+    if (tabs) tabs.hidden = true;
+    const gate = document.createElement("div");
+    gate.className = "empty-state";
+    const heading = document.createElement("h2");
+    heading.textContent = "Finish your profile first";
+    const body = document.createElement("p");
+    body.className = "meta";
+    body.textContent =
+      "Your profile is not searchable yet. Complete and save the required fields so employers can find you—and so your inbox is ready when invitations arrive.";
+    const actions = document.createElement("div");
+    actions.className = "actions";
+    const link = document.createElement("a");
+    link.className = "button button-primary";
+    link.href = "profile.html";
+    link.textContent = "Complete your profile";
+    actions.append(link);
+    gate.append(heading, body, actions);
+    list.append(gate);
+    FirstPass.setNotice(
+      "Complete your profile before using the invitation inbox.",
+      "error",
+    );
+    FirstPassUi.showNotice(document.getElementById("notice"));
+    return;
+  }
+
   const allowed = ["all", "active", "saved", "past"];
   let view = new URLSearchParams(location.search).get("view") || "all";
   if (!allowed.includes(view)) view = "all";
@@ -13,8 +48,6 @@
   });
 
   const invitations = FirstPass.listInbox(view);
-  const count = document.getElementById("inbox-count");
-  const list = document.getElementById("inbox-list");
   count.className = "result-count";
   count.textContent =
     invitations.length + (invitations.length === 1 ? " invitation" : " invitations");
@@ -23,12 +56,45 @@
     const empty = document.createElement("div");
     empty.className = "empty-state";
     const messages = {
-      all: "When an employer reaches out, the invitation will appear here.",
-      active: "No active invitations right now.",
-      saved: "Nothing saved for later.",
-      past: "No past invitations yet.",
+      all: {
+        title: "Inbox is clear",
+        body: "When an employer invites you to interview, the invitation appears here with salary, arrangement, and a deadline.",
+        actionHref: "profile.html",
+        actionLabel: "Review your profile",
+      },
+      active: {
+        title: "No active invitations",
+        body: "Active means Pending — new invites you have not accepted, saved, or declined yet.",
+        actionHref: "inbox.html?view=all",
+        actionLabel: "View all invitations",
+      },
+      saved: {
+        title: "Nothing saved for later",
+        body: "Save for Later parks an invitation without changing the deadline—and without a confirm step. Open an Active invitation to save one.",
+        actionHref: "inbox.html?view=active",
+        actionLabel: "View active invitations",
+      },
+      past: {
+        title: "No past invitations yet",
+        body: "Accepted, declined, and expired invitations show up here after you respond or a deadline passes.",
+        actionHref: "inbox.html?view=all",
+        actionLabel: "View all invitations",
+      },
     };
-    empty.innerHTML = "<h2>Inbox is clear</h2><p class='meta'>" + messages[view] + "</p>";
+    const copy = messages[view];
+    const heading = document.createElement("h2");
+    heading.textContent = copy.title;
+    const body = document.createElement("p");
+    body.className = "meta";
+    body.textContent = copy.body;
+    const actions = document.createElement("div");
+    actions.className = "actions";
+    const link = document.createElement("a");
+    link.className = "button";
+    link.href = copy.actionHref;
+    link.textContent = copy.actionLabel;
+    actions.append(link);
+    empty.append(heading, body, actions);
     list.append(empty);
     return;
   }
@@ -47,10 +113,13 @@
     heading.append(title, company);
     top.append(heading, FirstPassUi.statusBadge(invitation.status));
 
-    const timing =
-      invitation.status === "pending" || invitation.status === "saved"
-        ? "Respond by " + FirstPassUi.formatDate(invitation.expires_at)
-        : "Deadline " + FirstPassUi.formatDate(invitation.expires_at);
+    const openStatus = invitation.status === "pending" || invitation.status === "saved";
+    const timing = openStatus
+      ? "Respond by " +
+        FirstPassUi.formatDate(invitation.expires_at) +
+        " · " +
+        FirstPassUi.timeRemaining(invitation.expires_at)
+      : "Deadline " + FirstPassUi.formatDate(invitation.expires_at);
 
     const metaRow = document.createElement("div");
     metaRow.className = "meta-row";
@@ -59,6 +128,7 @@
         " – " +
         FirstPassUi.formatMoney(invitation.salary_max),
       FirstPassUi.arrangementLabel(invitation.work_arrangement),
+      "Status: " + FirstPassUi.statusLabel(invitation.status),
       timing,
     ].forEach(function (text) {
       const chip = document.createElement("span");
@@ -71,10 +141,7 @@
     const open = document.createElement("a");
     open.className = "button button-primary";
     open.href = "invitation.html?id=" + invitation.id;
-    open.textContent =
-      invitation.status === "pending" || invitation.status === "saved"
-        ? "Open invitation"
-        : "View details";
+    open.textContent = openStatus ? "View Invitation" : "View details";
     actions.append(open);
 
     card.append(top, metaRow, actions);

@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Find candidates — FirstPass</title>
-  <link rel="stylesheet" href="css/app.css" />
+  <link rel="stylesheet" href="css/app.css?v=20261014l" />
 </head>
 <body>
   <header class="site-header" data-header></header>
@@ -17,19 +17,19 @@
       </div>
     </div>
     <form id="search-form" class="filters" action="search.html" method="get">
-      <label>
+      <label class="filter-field filter-skill">
         Skill
         <input name="skill" type="text" placeholder="React" />
       </label>
-      <label>
+      <label class="filter-field">
         Location
         <input name="location" type="text" placeholder="Miami" />
       </label>
-      <label>
+      <label class="filter-field">
         Preferred role
         <input name="role" type="text" placeholder="Frontend" />
       </label>
-      <label>
+      <label class="filter-field">
         Work arrangement
         <select name="work_arrangement">
           <option value="">Any</option>
@@ -38,11 +38,11 @@
           <option value="onsite">On-site</option>
         </select>
       </label>
-      <label>
+      <label class="filter-field">
         Salary budget (max)
         <input name="salary_max" type="number" min="1" step="1" placeholder="90000" />
       </label>
-      <div class="actions">
+      <div class="filters-submit">
         <button class="primary" type="submit">Search</button>
       </div>
     </form>
@@ -55,8 +55,8 @@
       <span>MMC6950</span>
     </div>
   </footer>
-  <script src="js/store.js"></script>
-  <script src="js/ui.js"></script>
-  <script src="js/search.js"></script>
+  <script src="js/store.js?v=20261014l"></script>
+  <script src="js/ui.js?v=20261014l"></script>
+  <script src="js/search.js?v=20261014l"></script>
 </body>
 </html>

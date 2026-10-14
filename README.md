@@ -12,6 +12,10 @@ Typical job boards put most of the early work on applicants. Candidates send man
 FirstPass reverses that sequence. Employers discover people through profiles and preferences, then invite them with the details a candidate needs to decide: role, salary range, work arrangement, a short summary, and why the employer is interested.
 
 
+## Functional prototype (Assignment 4.1 / 4.2)
+
+Open `index.html` in a browser (or use Live Server). Sign in with a demo account (password `demo`) or create an account. The prototype is a linked HTML/CSS/JS app stored in the browser; it does not require Django or React to demonstrate the MVP loop.
+
 ## MVP
 
 The minimum viable product covers one hiring loop and nothing extra:
@@ -21,13 +25,15 @@ The minimum viable product covers one hiring loop and nothing extra:
 3. The employer sends a complete interview invitation.
 4. The candidate reviews the invitation and responds before the deadline.
 
+**Implemented pages:** Sign in · Candidate Profile · Find Candidates · Candidate Preview · Send Invitation · Invitation Inbox · Invitation Detail · Sent Invitations.
+
 
 ### Core features
 
 | Feature | What it does |
 | --- | --- |
 | **Candidate Profiles** | Candidates add name, title, location, summary, skills, experience, education, portfolio URL, desired role, minimum salary, and work arrangement. |
-| **Candidate Search and Filtering** | Employers filter by role, skills, work arrangement, and salary minimum, then open a full profile. |
+| **Candidate Search and Filtering** | Employers filter by skill, location, preferred role, work arrangement, and salary budget (max), then open a full profile. |
 | **Interview Invitations** | Employers send an invitation that includes role title, salary range, work arrangement, role summary, reason for interest, and a response window. |
 | **Invitation Inbox** | Candidates see incoming invitations with status and time remaining, and can sort All, Active, Saved, and Past. |
 | **Responses, Status, and Expiration** | Candidates choose Accept Interview, Save for Later, or Decline Interview. Statuses are Pending, Saved, Accepted, Declined, and Expired. Save for Later does not extend the deadline. Unanswered invitations expire. |

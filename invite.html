@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Send invitation — FirstPass</title>
-  <link rel="stylesheet" href="css/app.css" />
+  <link rel="stylesheet" href="css/app.css?v=20261014l" />
 </head>
 <body>
   <header class="site-header" data-header></header>
@@ -13,20 +13,20 @@
     <div class="page-head">
       <div>
         <h1 id="invite-title">Send interview invitation</h1>
-        <p class="lede">Pick a saved role for the opening details, then write why this candidate fits.</p>
+        <p class="lede">Fill every transparency field required by the MVP, then send. A saved role is optional and only prefills the form.</p>
       </div>
     </div>
     <div class="invite-layout">
       <form id="invite-form" class="panel invite-form">
         <div class="role-picker">
           <label>
-            Saved role
+            Saved role (optional)
             <select id="job-posting" name="job_posting_id">
-              <option value="">Choose a saved role…</option>
+              <option value="">Fill the fields below manually…</option>
             </select>
           </label>
           <p class="meta role-picker-help">
-            Role title, summary, salary, arrangement, and deadline come from the role.
+            Choosing a saved role prefills title, summary, salary, arrangement, and response window.
             <a href="roles.html">Manage roles</a>
           </p>
         </div>
@@ -73,7 +73,7 @@
           <span class="field-error" data-error-for="reason_for_interest"></span>
         </label>
         <div class="actions">
-          <button class="primary" id="send-button" type="submit">Send invitation</button>
+          <button class="primary" id="send-button" type="submit">Send Interview Invitation</button>
           <a class="button" id="cancel-link" href="search.html">Cancel</a>
         </div>
       </form>
@@ -86,8 +86,8 @@
       <span>MMC6950</span>
     </div>
   </footer>
-  <script src="js/store.js"></script>
-  <script src="js/ui.js"></script>
-  <script src="js/invite.js"></script>
+  <script src="js/store.js?v=20261014l"></script>
+  <script src="js/ui.js?v=20261014l"></script>
+  <script src="js/invite.js?v=20261014l"></script>
 </body>
 </html>

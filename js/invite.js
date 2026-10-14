@@ -71,7 +71,7 @@
     const profileLink = document.createElement("a");
     profileLink.className = "button";
     profileLink.href = "candidate.html?id=" + person.id;
-    profileLink.textContent = "View full profile";
+    profileLink.textContent = "View Profile";
 
     recap.append(
       eyebrow,
@@ -86,6 +86,32 @@
       prefs,
       profileLink,
     );
+  }
+
+  function prefillFromCandidate(person) {
+    if (!person) return;
+    if (!form.elements.role_title.value) {
+      form.elements.role_title.value = person.preferred_role || "";
+    }
+    if (!form.elements.work_arrangement.value && person.preferred_work_arrangement) {
+      form.elements.work_arrangement.value = person.preferred_work_arrangement;
+    }
+    const floor = Number(person.preferred_salary_min) || 0;
+    if (!form.elements.salary_min.value && floor > 0) {
+      form.elements.salary_min.value = floor;
+    }
+    if (!form.elements.salary_max.value && floor > 0) {
+      form.elements.salary_max.value = floor + 15000;
+    }
+    if (!form.elements.expires_in_days.value) {
+      form.elements.expires_in_days.value = 7;
+    }
+    if (!form.elements.role_summary.value && person.preferred_role) {
+      form.elements.role_summary.value =
+        "This opening is for a " +
+        person.preferred_role +
+        " role. Complete the summary with team context before sending.";
+    }
   }
 
   function fillRoles() {
@@ -151,35 +177,33 @@
   cancel.href = "candidate.html?id=" + candidate.id;
   renderRecap(candidate);
 
-  if (!roles.length) {
-    FirstPass.setNotice(
-      "Save a role first under Roles. Invitations pull title, summary, salary, and arrangement from that opening.",
-      "error",
-    );
-    FirstPassUi.showNotice(document.getElementById("notice"));
-  } else {
+  let usedRole = false;
+  if (roles.length) {
     const matched = matchRoleForCandidate();
     if (matched) {
       roleSelect.value = String(matched.id);
       applyRole(matched);
+      usedRole = true;
     }
+  }
+  if (!usedRole) {
+    prefillFromCandidate(candidate);
   }
 
   roleSelect.addEventListener("change", function () {
     const role = FirstPass.getJobPosting(roleSelect.value);
-    if (!role) return;
+    if (!role) {
+      prefillFromCandidate(candidate);
+      return;
+    }
     applyRole(role);
     form.elements.reason_for_interest.focus();
   });
 
-  const open = FirstPass.listSent().find(function (item) {
-    return (
-      item.candidate_id === candidate.id &&
-      (item.status === "pending" || item.status === "saved")
-    );
-  });
+  const open = FirstPass.getOpenInvitationForCandidate(candidate.id);
   if (open) {
     send.disabled = true;
+    form.hidden = true;
     FirstPass.setNotice(
       "You already have an open invitation for " +
         candidate.full_name +
@@ -187,19 +211,26 @@
       "error",
     );
     FirstPassUi.showNotice(document.getElementById("notice"));
+    const actions = document.createElement("div");
+    actions.className = "actions";
+    const sentLink = document.createElement("a");
+    sentLink.className = "button button-soft";
+    sentLink.href = "sent.html?id=" + open.id;
+    sentLink.textContent = "View Invitation";
+    const backLink = document.createElement("a");
+    backLink.className = "button";
+    backLink.href = "candidate.html?id=" + candidate.id;
+    backLink.textContent = "View Profile";
+    actions.append(sentLink, backLink);
+    form.parentNode.insertBefore(actions, form);
   }
 
   form.addEventListener("submit", function (event) {
     event.preventDefault();
-    if (!roleSelect.value) {
-      FirstPass.setNotice("Choose a saved role before sending the invitation.", "error");
-      FirstPassUi.showNotice(document.getElementById("notice"));
-      roleSelect.focus();
-      return;
-    }
+    FirstPassUi.clearErrors(form);
     const result = FirstPass.createInvitation({
       candidate_id: candidate.id,
-      job_posting_id: roleSelect.value,
+      job_posting_id: roleSelect.value || null,
       role_title: form.elements.role_title.value,
       role_summary: form.elements.role_summary.value,
       salary_min: form.elements.salary_min.value,

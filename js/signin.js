@@ -141,7 +141,23 @@
     role.textContent = account.role === "employer" ? "Employer" : "Candidate";
     const detail = document.createElement("span");
     detail.className = "meta";
-    detail.textContent = account.detail;
+    // Employers: title + company on separate lines so sibling cards share the same rhythm.
+    if (account.role === "employer") {
+      const split = String(account.detail || "").indexOf(", ");
+      if (split !== -1) {
+        const titleLine = document.createElement("span");
+        titleLine.className = "demo-card-line";
+        titleLine.textContent = account.detail.slice(0, split + 1);
+        const companyLine = document.createElement("span");
+        companyLine.className = "demo-card-line";
+        companyLine.textContent = account.detail.slice(split + 2);
+        detail.append(titleLine, companyLine);
+      } else {
+        detail.textContent = account.detail;
+      }
+    } else {
+      detail.textContent = account.detail;
+    }
     button.append(name, role, detail);
     button.addEventListener("click", function () {
       showAuthTab("signin");

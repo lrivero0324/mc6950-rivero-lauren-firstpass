@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Invitation inbox — FirstPass</title>
-  <link rel="stylesheet" href="css/app.css" />
+  <link rel="stylesheet" href="css/app.css?v=20261014l" />
 </head>
 <body>
   <header class="site-header" data-header></header>
@@ -22,6 +22,12 @@
       <a href="inbox.html?view=saved" data-view="saved">Saved</a>
       <a href="inbox.html?view=past" data-view="past">Past</a>
     </nav>
+    <p class="meta" id="inbox-helper">
+      <strong>Active</strong> means Pending — a new invitation you have not acted on.
+      <strong>Saved</strong> is Save for Later: it only parks the invite (no confirmation needed) and does <em>not</em> extend the deadline; you can still Accept or Decline until time runs out.
+      Accept and Decline are final and will ask you to confirm.
+      <strong>Past</strong> holds accepted, declined, and expired invitations.
+    </p>
     <p id="inbox-count" class="result-count"></p>
     <div id="inbox-list"></div>
   </main>
@@ -31,8 +37,8 @@
       <span>MMC6950</span>
     </div>
   </footer>
-  <script src="js/store.js"></script>
-  <script src="js/ui.js"></script>
-  <script src="js/inbox.js"></script>
+  <script src="js/store.js?v=20261014l"></script>
+  <script src="js/ui.js?v=20261014l"></script>
+  <script src="js/inbox.js?v=20261014l"></script>
 </body>
 </html>

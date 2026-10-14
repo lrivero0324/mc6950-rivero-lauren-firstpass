@@ -60,12 +60,31 @@ test("search filters skill, location, role, arrangement, and salary budget", fun
   assert.ok(!budget.some((item) => item.full_name === "Sam Okonkwo"));
 });
 
-test("search hides candidates the signed-in employer has already invited", function () {
+test("open invitation helper flags pending or saved invites for the employer", function () {
   signInAs("Maya Chen");
   const results = FirstPass.searchCandidates({});
-  assert.ok(!results.some((item) => item.full_name === "Alex Rivera"));
-  assert.ok(!results.some((item) => item.full_name === "Sam Okonkwo"));
+  assert.ok(results.some((item) => item.full_name === "Alex Rivera"));
   assert.ok(results.some((item) => item.full_name === "Jordan Ellis"));
+  assert.ok(FirstPass.getOpenInvitationForCandidate(1)); // Alex — saved
+  assert.ok(FirstPass.getOpenInvitationForCandidate(3)); // Priya — pending
+  assert.ok(!FirstPass.getOpenInvitationForCandidate(2)); // Sam — accepted
+  assert.ok(!FirstPass.getOpenInvitationForCandidate(4)); // Chris — declined
+});
+
+test("candidate active inbox count matches pending invitations", function () {
+  signInAs("Alex Rivera");
+  const pending = FirstPass.listInbox("active").length;
+  assert.strictEqual(FirstPass.countActiveInbox(), pending);
+  assert.ok(pending >= 1);
+});
+
+test("employer pending sent count matches pending invitations", function () {
+  signInAs("Maya Chen");
+  const pending = FirstPass.listSent().filter(function (item) {
+    return item.status === "pending";
+  }).length;
+  assert.strictEqual(FirstPass.countPendingSent(), pending);
+  assert.ok(pending >= 1);
 });
 
 test("an incomplete profile stays out of search until it is saved", function () {
@@ -178,10 +197,14 @@ test("an invitation requires every transparency field and a valid salary range",
   );
 
   const before = Date.now();
-  const created = FirstPass.createInvitation(validInvite({ candidate_id: ellis.id, expires_in_days: 1 }));
+  // MVP path: send with transparency fields only (no saved role required).
+  const created = FirstPass.createInvitation(
+    validInvite({ candidate_id: ellis.id, expires_in_days: 1, job_posting_id: null }),
+  );
   const after = Date.now();
   assert.strictEqual(created.ok, true, created.error);
   assert.strictEqual(created.invitation.status, "pending");
+  assert.strictEqual(created.invitation.job_posting_id, null);
   const expires = new Date(created.invitation.expires_at).getTime();
   assert.ok(expires >= before + 24 * 60 * 60 * 1000 - 2000);
   assert.ok(expires <= after + 24 * 60 * 60 * 1000 + 2000);
@@ -234,10 +257,7 @@ test("a final or expired invitation does not block a new one, but an open one do
   signInAs("Maya Chen");
   const alex = FirstPass.getCandidate(1);
   assert.ok(alex);
-  assert.ok(
-    !FirstPass.searchCandidates({}).some((item) => item.id === alex.id),
-    "open prospects should hide candidates with any prior invitation",
-  );
+  assert.ok(FirstPass.getOpenInvitationForCandidate(alex.id));
   const blocked = FirstPass.createInvitation(validInvite({ candidate_id: alex.id }));
   assert.strictEqual(blocked.ok, false);
 

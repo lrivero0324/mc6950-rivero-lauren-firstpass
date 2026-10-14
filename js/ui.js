@@ -95,12 +95,18 @@
     nav.setAttribute("aria-label", "Primary");
     if (user && user.role === "candidate") {
       nav.append(navLink("profile.html", "Profile", active));
-      nav.append(navLink("inbox.html", "Inbox", active));
+      const activeCount = FirstPass.countActiveInbox();
+      const inboxLabel =
+        activeCount > 0 ? "Inbox (" + activeCount + ")" : "Inbox";
+      nav.append(navLink("inbox.html", inboxLabel, active));
     }
     if (user && user.role === "employer") {
       nav.append(navLink("search.html", "Find candidates", active));
       nav.append(navLink("roles.html", "Roles", active));
-      nav.append(navLink("sent.html", "Sent invitations", active));
+      const pendingSent = FirstPass.countPendingSent();
+      const sentLabel =
+        pendingSent > 0 ? "Sent invitations (" + pendingSent + ")" : "Sent invitations";
+      nav.append(navLink("sent.html", sentLabel, active));
     }
     bar.append(nav);
 

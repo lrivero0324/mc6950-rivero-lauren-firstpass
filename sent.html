@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Sent invitations — FirstPass</title>
-  <link rel="stylesheet" href="css/app.css" />
+  <link rel="stylesheet" href="css/app.css?v=20261014l" />
 </head>
 <body>
   <header class="site-header" data-header></header>
@@ -12,6 +12,15 @@
     <p id="notice" class="notice" hidden></p>
     <h1>Sent invitations</h1>
     <p class="lede">Status updates when a candidate responds or when the deadline passes. Invitations cannot be edited after they are sent.</p>
+    <nav class="tabs" aria-label="Sent invitation filters" id="sent-filters">
+      <a href="sent.html?status=all" data-status="all">All</a>
+      <a href="sent.html?status=pending" data-status="pending">Pending</a>
+      <a href="sent.html?status=saved" data-status="saved">Saved</a>
+      <a href="sent.html?status=accepted" data-status="accepted">Accepted</a>
+      <a href="sent.html?status=declined" data-status="declined">Declined</a>
+      <a href="sent.html?status=expired" data-status="expired">Expired</a>
+    </nav>
+    <p id="sent-count" class="result-count"></p>
     <div id="sent-table"></div>
     <article id="sent-detail" class="detail" hidden style="margin-top: 1rem;"></article>
   </main>
@@ -21,8 +30,8 @@
       <span>MMC6950</span>
     </div>
   </footer>
-  <script src="js/store.js"></script>
-  <script src="js/ui.js"></script>
-  <script src="js/sent.js"></script>
+  <script src="js/store.js?v=20261014l"></script>
+  <script src="js/ui.js?v=20261014l"></script>
+  <script src="js/sent.js?v=20261014l"></script>
 </body>
 </html>

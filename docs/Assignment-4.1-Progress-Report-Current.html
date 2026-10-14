@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Assignment 4.1 Progress Report — FirstPass</title>
+  <style>
+    body {
+      margin: 0;
+      color: #1a1a1a;
+      font: 12pt/1.55 "Times New Roman", Times, serif;
+      background: #fff;
+    }
+    .page { max-width: 8.5in; margin: 0 auto; padding: 1in 1in 1.15in; }
+    header { text-align: center; margin-bottom: 1.4em; }
+    h1 { font-size: 16pt; margin: 0 0 0.7em; }
+    .meta { margin: 0; line-height: 1.4; }
+    h2 { font-size: 13pt; margin: 1.3em 0 0.45em; }
+    p { margin: 0 0 0.85em; text-align: justify; }
+    @media print {
+      .page { padding: 0.7in 0.85in; }
+    }
+  </style>
+</head>
+<body>
+  <article class="page">
+    <header>
+      <h1>FirstPass Functional Prototype Progress Report</h1>
+      <p class="meta">Lauren A. Rivero</p>
+      <p class="meta">University of Florida</p>
+      <p class="meta">MMC 6950: Capstone — Web Design and Online Communication</p>
+      <p class="meta">Mr. Efren Vasquez</p>
+      <p class="meta">September 27, 2026</p>
+    </header>
+
+    <h2>Progress</h2>
+    <section id="body">
+      <p>
+        This report describes progress on the FirstPass functional prototype for Assignment 4.1. The prototype is a set of linked HTML, CSS, and JavaScript files in the project repository. It implements the critical hiring loop from my Assignment 2.1 minimum viable product: a candidate saves a searchable profile, an employer finds and reviews that person, the employer sends a transparent interview invitation, and the candidate responds before the deadline. The six wireframe screens are present as separate pages, with sign-in, sent invitations, and a small roles helper added so the loop can be demonstrated end to end.
+      </p>
+      <p>
+        The first MVP feature I worked on is candidate profiles. The proof-of-concept API exposed seeded candidates as read-only records. The prototype adds a profile form with the required fields from the MVP outline: name, headline, location, skills, years of experience, education, preferred role, salary floor, work arrangement, and summary. Portfolio remains an optional URL so file hosting stays out of scope. Incomplete profiles are kept out of search until validation passes. New candidates can register from the sign-in page and begin with an empty form, while seeded profiles are already complete so employers see results on the first visit.
+      </p>
+      <p>
+        The second and third features are employer search and interview invitations. Find Candidates filters by skill, location, preferred role, work arrangement, and a salary budget that keeps people whose floor is at or below the amount entered. Opening a card shows a read-only preview whose primary action is Invite to interview. The send form requires role title, summary, salary range, work arrangement, reason for interest, and a response window between one and thirty days. It rejects a missing transparency field, an invalid salary range, or a second invitation while an earlier one for that candidate is still pending or saved. After a successful send, the employer lands on Sent invitations so status is visible on that side of the loop.
+      </p>
+      <p>
+        The fourth and fifth features are the invitation inbox and response, status, and expiration rules. Candidates filter All, Active, Saved, and Past. Active maps to pending. Past holds accepted, declined, and expired items. On the detail page the candidate may Accept Interview, Save for Later, or Decline. Accept and decline are final; accept means willingness to interview, not acceptance of a job. Save for Later changes status without moving the deadline. When the deadline has passed, the next load expires a pending or saved invitation, disables the actions, and moves the item out of Saved into Past so both roles share one status model.
+      </p>
+      <p>
+        Around that loop I also built sign-in and create-account flows, demo accounts for classroom walkthroughs, and a Roles page so employers can reuse posting details when inviting. Those pieces are not separate MVP features, but they support the invitation feature by making the prototype usable without a live API. Records follow the Assignment 1.2 models and live in browser storage. Session is per window so one browser can act as employer and another as candidate against the same data. A Node test suite checks search, validation, duplicate invites, save-for-later, and expiration.
+      </p>
+      <p>
+        Several stumbling blocks shaped the work. Splitting the single-screen proof of concept into linked pages meant the signed-in user and invitation state had to survive ordinary navigation without a front-end framework. Expiration versus Save for Later was the sharpest product rule: if a saved invitation stayed under Saved after the deadline, saving would effectively extend the window, so each read compares the timestamp instead of trusting a background timer. There is still no email when a deadline passes, and previews use initials because photo upload is outside the MVP. Layout work on the auth screen also took longer than expected; keeping the illustration stable when the demo account list opened required separating that panel from the height used to center the graphic. Sign-in itself is not real account security, which is acceptable for a prototype but remains a concern for any later public deployment.
+      </p>
+      <p>
+        Messaging, scheduling, recommendations, and résumé upload stay out of scope, matching the MVP outline. Next I will carry these same validation and status rules onto the Django API and align the React proof of concept with the page routes this prototype already uses.
+      </p>
+    </section>
+  </article>
+</body>
+</html>
