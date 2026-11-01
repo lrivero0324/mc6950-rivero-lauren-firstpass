@@ -72,19 +72,20 @@
     line("Why they reached out", invitation.reason_for_interest);
 
     const meaning = document.createElement("p");
+    meaning.className = "invitation-note";
     meaning.textContent =
       "Accepting means you are willing to interview—it is not a job offer. Accept and Decline ask for confirmation because they are final. Save for Later only parks this invite and does not change the deadline.";
 
     const actions = document.createElement("div");
-    actions.className = "actions";
+    actions.className = "actions invitation-actions";
     const final = invitation.status === "accepted" || invitation.status === "declined";
     const expired = invitation.status === "expired";
 
     if (!final) {
       [
-        ["accept", "Accept Interview", true],
-        ["save", "Save for Later", false],
-        ["decline", "Decline Interview", false],
+        ["accept", "Accept interview", true],
+        ["save", "Save for later", false],
+        ["decline", "Decline interview", false],
       ].forEach(function (spec) {
         const button = document.createElement("button");
         button.type = "button";

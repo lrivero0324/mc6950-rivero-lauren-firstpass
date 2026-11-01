@@ -114,12 +114,6 @@
     top.append(heading, FirstPassUi.statusBadge(invitation.status));
 
     const openStatus = invitation.status === "pending" || invitation.status === "saved";
-    const timing = openStatus
-      ? "Respond by " +
-        FirstPassUi.formatDate(invitation.expires_at) +
-        " · " +
-        FirstPassUi.timeRemaining(invitation.expires_at)
-      : "Deadline " + FirstPassUi.formatDate(invitation.expires_at);
 
     const metaRow = document.createElement("div");
     metaRow.className = "meta-row";
@@ -129,19 +123,29 @@
         FirstPassUi.formatMoney(invitation.salary_max),
       FirstPassUi.arrangementLabel(invitation.work_arrangement),
       "Status: " + FirstPassUi.statusLabel(invitation.status),
-      timing,
     ].forEach(function (text) {
       const chip = document.createElement("span");
       chip.textContent = text;
       metaRow.append(chip);
     });
 
+    if (openStatus) {
+      const days = document.createElement("span");
+      days.className = "days-remaining";
+      days.textContent = FirstPassUi.timeRemaining(invitation.expires_at);
+      metaRow.append(days);
+    } else {
+      const closed = document.createElement("span");
+      closed.textContent = "Deadline " + FirstPassUi.formatDate(invitation.expires_at);
+      metaRow.append(closed);
+    }
+
     const actions = document.createElement("div");
     actions.className = "actions";
     const open = document.createElement("a");
     open.className = "button button-primary";
     open.href = "invitation.html?id=" + invitation.id;
-    open.textContent = openStatus ? "View Invitation" : "View details";
+    open.textContent = openStatus ? "View invitation" : "View details";
     actions.append(open);
 
     card.append(top, metaRow, actions);

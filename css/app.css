@@ -1,7 +1,19 @@
 @import url("https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&display=swap");
 
-/* FirstPass — Clarity · Connection · Trust
-   Editorial product UI: sharp geometry, serif display, ink + forest teal. */
+/*
+  FirstPass — Clarity · Connection · Trust
+  Assignment 8.1 styling system (single stylesheet, mockup-aligned)
+
+  Organization
+  - Design tokens live in :root (color, type, spacing, layout width).
+  - Sections are grouped by product surface (chrome, auth, shared UI,
+    search/profile, invite, inbox/detail), then responsive overrides.
+  - Class names stay descriptive / lightly BEM-ish (block__ or
+    block-element via hyphens) without a build step or CSS Modules —
+    this prototype is static HTML/CSS/JS.
+  - Breakpoints follow the Assignment 7.1 mockups: ~980px tablet stack,
+    ~800px phone density, with auth/legal refinements inside those queries.
+*/
 
 :root {
   --ink: #101c1f;
@@ -19,7 +31,7 @@
   --warn: #8a6414;
   --danger: #9b3530;
   --shadow: none;
-  --shadow-sm: none;
+  --shadow-sm: 0 18px 40px rgba(16, 28, 31, 0.1);
   --radius: 0.2rem;
   --radius-sm: 0.15rem;
   --ease: cubic-bezier(0.2, 0.8, 0.2, 1);
@@ -232,6 +244,12 @@ h2 {
   font-weight: 650;
   color: var(--ink);
   letter-spacing: -0.02em;
+}
+
+/* In-app pages share the mockup chrome: sticky header + footer pin */
+body.app-body > .page,
+body.app-body > main.page {
+  flex: 1 0 auto;
 }
 
 .notice {
@@ -751,6 +769,8 @@ section.panel,
 
 .listing-card {
   border-left: 3px solid transparent;
+  display: grid;
+  gap: 0.7rem;
 }
 
 .listing-card:hover {
@@ -759,13 +779,15 @@ section.panel,
 
 .listing-card h2,
 .listing-card h3 {
-  margin-bottom: 0.2rem;
+  margin: 0 0 0.2rem;
   font-family: var(--font-display);
   font-weight: 600;
+  letter-spacing: -0.02em;
+  font-size: 1.2rem;
 }
 
 .listing-headline {
-  margin: 0 0 0.7rem;
+  margin: 0;
   color: var(--ink-soft);
   font-weight: 500;
 }
@@ -774,7 +796,7 @@ section.panel,
   display: flex;
   flex-wrap: wrap;
   gap: 0.35rem;
-  margin: 0 0 0.75rem;
+  margin: 0;
 }
 
 .meta-row span {
@@ -788,6 +810,22 @@ section.panel,
   font-size: 0.76rem;
   font-weight: 650;
   letter-spacing: 0.01em;
+}
+
+/* Mockup: days remaining emphasized on inbox cards */
+.meta-row .days-remaining {
+  background: var(--teal-soft);
+  border-color: transparent;
+  color: var(--teal-deep);
+  font-weight: 750;
+}
+
+.listing-card .actions {
+  margin-top: 0.1rem;
+}
+
+.listing-card .actions .button-primary {
+  min-width: 10rem;
 }
 
 .card-layout {
@@ -1445,6 +1483,114 @@ tr:last-child td { border-bottom: 0; }
   box-shadow: none;
 }
 
+.detail {
+  max-width: 52rem;
+}
+
+.detail > .row-between h1 {
+  font-family: var(--font-display);
+  letter-spacing: -0.03em;
+}
+
+.detail > .lede {
+  max-width: 40rem;
+}
+
+.invitation-actions {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.65rem;
+  margin-top: 1.35rem;
+}
+
+.invitation-actions .primary,
+.invitation-actions button.primary {
+  grid-column: auto;
+}
+
+.invitation-note {
+  margin: 0.85rem 0 0;
+  color: var(--ink-soft);
+  font-size: 0.95rem;
+  max-width: 42rem;
+}
+
+/* ---------- Invite as modal-style page (Assignment 7.1 E3 visual) ---------- */
+.invite-page {
+  background:
+    linear-gradient(180deg, rgba(16, 28, 31, 0.28), rgba(16, 28, 31, 0.28)),
+    var(--paper);
+}
+
+.invite-page .site-header {
+  background: rgba(251, 252, 251, 0.96);
+}
+
+.invite-page .page-head {
+  display: none;
+}
+
+.invite-page .page {
+  width: min(640px, calc(100% - 1.5rem));
+  padding-top: 1.75rem;
+  padding-bottom: 2.5rem;
+}
+
+.invite-page .invite-layout {
+  display: block;
+  border: 0;
+  background: transparent;
+}
+
+.invite-page .invite-form {
+  border: 1px solid var(--line);
+  background: var(--panel);
+  box-shadow: var(--shadow-sm);
+  padding: 1.55rem 1.6rem 1.45rem;
+  border-radius: var(--radius);
+}
+
+.invite-page .invite-form > h1,
+.invite-page .invite-modal-title {
+  margin: 0 0 0.35rem;
+  font-family: var(--font-display);
+  font-size: clamp(1.45rem, 2.4vw, 1.75rem);
+  letter-spacing: -0.03em;
+}
+
+.invite-page .invite-modal-sub {
+  margin: 0 0 1.15rem;
+  color: var(--ink-soft);
+  font-size: 0.95rem;
+}
+
+.invite-page .invite-recap {
+  margin-top: 1rem;
+  border: 1px solid var(--line);
+  border-left: 1px solid var(--line);
+  background: rgba(251, 252, 251, 0.92);
+  position: static;
+  padding: 1.15rem 1.25rem;
+}
+
+.invite-page .invite-form .actions {
+  display: grid;
+  gap: 0.55rem;
+  margin-top: 1.25rem;
+}
+
+.invite-page .invite-form .actions .primary {
+  width: 100%;
+}
+
+.invite-page .invite-form .actions .button {
+  width: 100%;
+}
+
+.invite-page .site-footer {
+  background: rgba(251, 252, 251, 0.92);
+}
+
 .page-kicker {
   display: inline-flex;
   width: fit-content;
@@ -1486,7 +1632,12 @@ tr:last-child td { border-bottom: 0; }
   }
 }
 
+/* Tablet — Assignment 7.1 ~768px frames */
 @media (max-width: 980px) {
+  :root {
+    --page: min(1120px, calc(100% - 2rem));
+  }
+
   .auth-shell {
     grid-template-columns: 1fr;
     gap: 1rem;
@@ -1504,7 +1655,7 @@ tr:last-child td { border-bottom: 0; }
     justify-content: center;
   }
   .auth-visual-art {
-    width: min(100%, 340px);
+    width: min(100%, 300px);
   }
   .auth-panel {
     justify-self: stretch;
@@ -1518,6 +1669,14 @@ tr:last-child td { border-bottom: 0; }
   }
   .auth-headline {
     max-width: none;
+    text-align: left;
+  }
+  .auth-sub {
+    text-align: left;
+  }
+  .auth-legal {
+    justify-content: center;
+    text-align: center;
   }
   .filters { grid-template-columns: 1fr 1fr; }
   .filters-submit { grid-column: 1 / -1; }
@@ -1525,7 +1684,7 @@ tr:last-child td { border-bottom: 0; }
   .card-layout .actions {
     grid-column: 1 / -1;
     flex-direction: row;
-    justify-content: center;
+    justify-content: flex-start;
     width: 100%;
   }
   .card-layout .actions .button {
@@ -1550,9 +1709,20 @@ tr:last-child td { border-bottom: 0; }
     border-right: 0;
     border-bottom: 1px solid var(--line);
   }
+  .invitation-actions {
+    grid-template-columns: 1fr;
+  }
+  .listing-card .actions .button-primary {
+    width: 100%;
+  }
 }
 
+/* Phone — Assignment 7.1 ~390px frames */
 @media (max-width: 800px) {
+  :root {
+    --page: min(1120px, calc(100% - 1.5rem));
+  }
+
   .split,
   .grid-2,
   .filters,
@@ -1574,5 +1744,53 @@ tr:last-child td { border-bottom: 0; }
   }
   .filters-submit,
   .filters-submit button { width: 100%; }
-  .tabs { width: 100%; }
+  .tabs {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+  .tabs a {
+    text-align: center;
+    padding: 0.55rem 0.35rem;
+    font-size: 0.8rem;
+  }
+  .auth-top {
+    width: min(1120px, calc(100% - 1.5rem));
+  }
+  .auth-shell {
+    width: min(1180px, calc(100% - 1.5rem));
+    padding-top: 1rem;
+  }
+  .auth-visual-art {
+    width: min(100%, 240px);
+  }
+  .auth-headline {
+    font-size: clamp(1.55rem, 7vw, 1.85rem);
+  }
+  .auth-legal {
+    width: min(1180px, calc(100% - 1.5rem));
+    flex-direction: column;
+    gap: 0.35rem;
+    font-size: 0.72rem;
+  }
+  .auth-legal-links {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.35rem 0.85rem;
+  }
+  .invite-page .page {
+    width: min(640px, calc(100% - 1rem));
+    padding-top: 1rem;
+  }
+  .invite-page .invite-form {
+    padding: 1.2rem 1.1rem 1.15rem;
+  }
+  .profile-main .actions,
+  .listing-card .actions {
+    display: grid;
+  }
+  .profile-main .actions .button,
+  .listing-card .actions .button {
+    width: 100%;
+  }
 }

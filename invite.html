@@ -4,20 +4,22 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Send invitation — FirstPass</title>
-  <link rel="stylesheet" href="css/app.css?v=20261014l" />
+  <link rel="stylesheet" href="css/app.css?v=20261101a" />
 </head>
-<body>
+<body class="app-body invite-page">
   <header class="site-header" data-header></header>
   <main class="page">
     <p id="notice" class="notice" hidden></p>
-    <div class="page-head">
+    <div class="page-head" hidden>
       <div>
-        <h1 id="invite-title">Send interview invitation</h1>
+        <h1>Send interview invitation</h1>
         <p class="lede">Fill every transparency field required by the MVP, then send. A saved role is optional and only prefills the form.</p>
       </div>
     </div>
     <div class="invite-layout">
-      <form id="invite-form" class="panel invite-form">
+      <form id="invite-form" class="panel invite-form" aria-labelledby="invite-title">
+        <h1 class="invite-modal-title" id="invite-title">Send interview invitation</h1>
+        <p class="invite-modal-sub">Salary, arrangement, and response window stay visible before you send.</p>
         <div class="role-picker">
           <label>
             Saved role (optional)
@@ -73,7 +75,7 @@
           <span class="field-error" data-error-for="reason_for_interest"></span>
         </label>
         <div class="actions">
-          <button class="primary" id="send-button" type="submit">Send Interview Invitation</button>
+          <button class="primary" id="send-button" type="submit">Send interview invitation</button>
           <a class="button" id="cancel-link" href="search.html">Cancel</a>
         </div>
       </form>
@@ -86,8 +88,8 @@
       <span>MMC6950</span>
     </div>
   </footer>
-  <script src="js/store.js?v=20261014l"></script>
-  <script src="js/ui.js?v=20261014l"></script>
-  <script src="js/invite.js?v=20261014l"></script>
+  <script src="js/store.js?v=20261101a"></script>
+  <script src="js/ui.js?v=20261101a"></script>
+  <script src="js/invite.js?v=20261101a"></script>
 </body>
 </html>

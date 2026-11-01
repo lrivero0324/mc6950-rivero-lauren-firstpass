@@ -140,7 +140,7 @@
       const invite = document.createElement("a");
       invite.className = "button button-primary";
       invite.href = "invite.html?candidate=" + candidate.id;
-      invite.textContent = "Invite to Interview";
+      invite.textContent = "Invite to interview";
       actions.append(view, invite);
     }
 
