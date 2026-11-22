@@ -19,7 +19,7 @@
     const body = document.createElement("p");
     body.className = "meta";
     body.textContent =
-      "Your profile is not searchable yet. Complete and save the required fields so employers can find you—and so your inbox is ready when invitations arrive.";
+      "Your profile is not searchable yet. Complete the required fields and save them so employers can find you. Your inbox will be ready when an invitation arrives.";
     const actions = document.createElement("div");
     actions.className = "actions";
     const link = document.createElement("a");
@@ -64,13 +64,13 @@
       },
       active: {
         title: "No active invitations",
-        body: "Active means Pending — new invites you have not accepted, saved, or declined yet.",
+        body: "Active invitations are still pending. These are new invitations you have not accepted, saved, or declined.",
         actionHref: "inbox.html?view=all",
         actionLabel: "View all invitations",
       },
       saved: {
         title: "Nothing saved for later",
-        body: "Save for Later parks an invitation without changing the deadline—and without a confirm step. Open an Active invitation to save one.",
+        body: "Save for Later sets an invitation aside. It does not change the deadline, and it does not ask you to confirm. Open an active invitation when you want to save one.",
         actionHref: "inbox.html?view=active",
         actionLabel: "View active invitations",
       },
@@ -119,7 +119,7 @@
     metaRow.className = "meta-row";
     [
       FirstPassUi.formatMoney(invitation.salary_min) +
-        " – " +
+        " to " +
         FirstPassUi.formatMoney(invitation.salary_max),
       FirstPassUi.arrangementLabel(invitation.work_arrangement),
       "Status: " + FirstPassUi.statusLabel(invitation.status),

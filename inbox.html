@@ -3,8 +3,11 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Invitation inbox — FirstPass</title>
-  <link rel="stylesheet" href="css/app.css?v=20261101a" />
+  <meta name="description" content="Review interview invitations on FirstPass. Each one includes pay, work arrangement, and a deadline. Accept, save for later, or decline." />
+  <title>Invitation inbox · FirstPass</title>
+  <link rel="icon" href="favicon.ico" sizes="32x32" />
+  <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="css/app.css?v=20261122b" />
 </head>
 <body class="app-body">
   <header class="site-header" data-header></header>
@@ -23,10 +26,10 @@
       <a href="inbox.html?view=past" data-view="past">Past</a>
     </nav>
     <p class="meta" id="inbox-helper">
-      <strong>Active</strong> means Pending — a new invitation you have not acted on.
-      <strong>Saved</strong> is Save for Later: it only parks the invite (no confirmation needed) and does <em>not</em> extend the deadline; you can still Accept or Decline until time runs out.
-      Accept and Decline are final and will ask you to confirm.
-      <strong>Past</strong> holds accepted, declined, and expired invitations.
+      <strong>Active</strong> invitations are still pending. You have not accepted, saved, or declined them yet.
+      <strong>Saved</strong> means you set an invitation aside for later. Saving does not extend the deadline, and you can still accept or decline before time runs out.
+      Accept and Decline are final. FirstPass will ask you to confirm before either choice is recorded.
+      <strong>Past</strong> holds invitations you accepted, declined, or let expire.
     </p>
     <p id="inbox-count" class="result-count"></p>
     <div id="inbox-list"></div>
@@ -38,7 +41,7 @@
     </div>
   </footer>
   <script src="js/store.js?v=20261101a"></script>
-  <script src="js/ui.js?v=20261101a"></script>
-  <script src="js/inbox.js?v=20261101a"></script>
+  <script src="js/ui.js?v=20261122c"></script>
+  <script src="js/inbox.js?v=20261122a"></script>
 </body>
 </html>

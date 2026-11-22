@@ -64,7 +64,7 @@
     line(
       "Salary",
       FirstPassUi.formatMoney(invitation.salary_min) +
-        " – " +
+        " to " +
         FirstPassUi.formatMoney(invitation.salary_max),
     );
     line("Work arrangement", FirstPassUi.arrangementLabel(invitation.work_arrangement));
@@ -74,7 +74,7 @@
     const meaning = document.createElement("p");
     meaning.className = "invitation-note";
     meaning.textContent =
-      "Accepting means you are willing to interview—it is not a job offer. Accept and Decline ask for confirmation because they are final. Save for Later only parks this invite and does not change the deadline.";
+      "Accepting means you are willing to interview. It is not a job offer. Accept and Decline are final, so FirstPass asks you to confirm. Save for Later only sets the invitation aside and does not change the deadline.";
 
     const actions = document.createElement("div");
     actions.className = "actions invitation-actions";

@@ -16,7 +16,7 @@
   if (!candidate) {
     const missing = document.createElement("div");
     missing.className = "empty-state";
-    const heading = document.createElement("h2");
+    const heading = document.createElement("h1");
     heading.textContent = "Profile unavailable";
     const body = document.createElement("p");
     body.className = "meta";
@@ -43,7 +43,8 @@
   avatar.textContent = FirstPassUi.initials(candidate.full_name);
   const prefs = document.createElement("div");
   prefs.className = "panel prefs-card";
-  const prefsTitle = document.createElement("h2");
+  const prefsTitle = document.createElement("p");
+  prefsTitle.className = "prefs-title";
   prefsTitle.textContent = "Preferences";
   prefs.append(prefsTitle);
   [
@@ -72,8 +73,8 @@
   openBadge.className = "notice";
   openBadge.setAttribute("role", "status");
   openBadge.textContent = candidate.profile_complete
-    ? "Open to Opportunities — this candidate appears in search and can receive interview invitations."
-    : "Not open to opportunities yet — this profile is incomplete and is hidden from search.";
+    ? "Open to opportunities. This candidate appears in search and can receive interview invitations."
+    : "Not open to opportunities yet. This profile is incomplete, so it stays hidden from search.";
 
   const lede = document.createElement("p");
   lede.className = "lede";

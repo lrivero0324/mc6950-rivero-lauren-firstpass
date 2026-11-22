@@ -63,13 +63,13 @@
     status.setAttribute("role", "status");
     if (complete) {
       status.textContent =
-        "Searchable — employers can find this profile in Find candidates.";
+        "Searchable. Employers can find this profile in Find candidates.";
       state.append(status);
       return;
     }
     const gaps = missingRequired(data);
     status.textContent =
-      "Not searchable yet — complete and save the required fields before employers can find you.";
+      "Not searchable yet. Complete the required fields and save your profile so employers can find you.";
     state.append(status);
     if (gaps.length) {
       const listIntro = document.createElement("p");

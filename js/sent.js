@@ -92,7 +92,7 @@
     const openStatus = invitation.status === "pending" || invitation.status === "saved";
     const remaining = openStatus
       ? FirstPassUi.timeRemaining(invitation.expires_at)
-      : "—";
+      : "Closed";
     row.append(cell(invitation.candidate.full_name), cell(invitation.role_title));
     const statusCell = document.createElement("td");
     statusCell.append(FirstPassUi.statusBadge(invitation.status));
@@ -105,7 +105,11 @@
     const action = document.createElement("td");
     const button = document.createElement("button");
     button.type = "button";
-    button.textContent = "View";
+    button.append(document.createTextNode("View invitation"));
+    const buttonName = document.createElement("span");
+    buttonName.className = "visually-hidden";
+    buttonName.textContent = " for " + invitation.candidate.full_name;
+    button.append(buttonName);
     button.addEventListener("click", function () {
       showDetail(invitation, row);
     });
@@ -126,7 +130,7 @@
     detail.hidden = false;
     detail.replaceChildren();
     const title = document.createElement("h2");
-    title.textContent = invitation.role_title + " — " + invitation.candidate.full_name;
+    title.textContent = invitation.role_title + " for " + invitation.candidate.full_name;
     const statusLine = document.createElement("p");
     statusLine.append(document.createTextNode("Status: "));
     statusLine.append(FirstPassUi.statusBadge(invitation.status));
@@ -145,7 +149,7 @@
       paragraph(
         "Salary",
         FirstPassUi.formatMoney(invitation.salary_min) +
-          " – " +
+          " to " +
           FirstPassUi.formatMoney(invitation.salary_max),
       ),
       paragraph("Work arrangement", FirstPassUi.arrangementLabel(invitation.work_arrangement)),

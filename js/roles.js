@@ -63,7 +63,7 @@
       meta.className = "listing-headline";
       meta.textContent =
         FirstPassUi.formatMoney(role.salary_min) +
-        " – " +
+        " to " +
         FirstPassUi.formatMoney(role.salary_max) +
         " · " +
         FirstPassUi.arrangementLabel(role.work_arrangement) +

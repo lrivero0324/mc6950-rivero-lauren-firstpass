@@ -3,8 +3,11 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Send invitation — FirstPass</title>
-  <link rel="stylesheet" href="css/app.css?v=20261101a" />
+  <meta name="description" content="Send a FirstPass interview invitation with the role, salary range, work arrangement, summary, and why you are interested." />
+  <title>Send invitation · FirstPass</title>
+  <link rel="icon" href="favicon.ico" sizes="32x32" />
+  <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="css/app.css?v=20261122b" />
 </head>
 <body class="app-body invite-page">
   <header class="site-header" data-header></header>
@@ -70,7 +73,7 @@
         </div>
         <label>
           Reason for interest
-          <textarea name="reason_for_interest" required placeholder="Why this candidate for this role—keep this personal."></textarea>
+          <textarea name="reason_for_interest" required placeholder="Share why this person is a good fit for the role."></textarea>
           <span class="hint">This is the only field that should change from invite to invite.</span>
           <span class="field-error" data-error-for="reason_for_interest"></span>
         </label>
@@ -79,7 +82,9 @@
           <a class="button" id="cancel-link" href="search.html">Cancel</a>
         </div>
       </form>
-      <aside id="candidate-recap" class="panel invite-recap" hidden></aside>
+      <aside id="candidate-recap" class="panel invite-recap">
+        <p class="meta">Candidate details appear here with the invitation.</p>
+      </aside>
     </div>
   </main>
   <footer class="site-footer">
@@ -89,7 +94,7 @@
     </div>
   </footer>
   <script src="js/store.js?v=20261101a"></script>
-  <script src="js/ui.js?v=20261101a"></script>
-  <script src="js/invite.js?v=20261101a"></script>
+  <script src="js/ui.js?v=20261122c"></script>
+  <script src="js/invite.js?v=20261122b"></script>
 </body>
 </html>

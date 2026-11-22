@@ -91,7 +91,7 @@
     avatar.textContent = FirstPassUi.initials(candidate.full_name);
 
     const heading = document.createElement("div");
-    const title = document.createElement("h3");
+    const title = document.createElement("h2");
     title.textContent = candidate.full_name;
     const headline = document.createElement("p");
     headline.className = "listing-headline";

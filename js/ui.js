@@ -122,7 +122,9 @@
       button.className = "button button-ghost";
       button.textContent = "Sign out";
       button.addEventListener("click", function () {
+        const name = user.name;
         FirstPass.signOut();
+        FirstPass.setNotice("You signed out of " + name + "'s account.");
         location.href = "index.html";
       });
       who.append(label, button);

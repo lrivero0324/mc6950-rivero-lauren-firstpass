@@ -122,7 +122,7 @@
         role.title +
         " · " +
         FirstPassUi.formatMoney(role.salary_min) +
-        "–" +
+        " to " +
         FirstPassUi.formatMoney(role.salary_max);
       roleSelect.append(option);
     });
@@ -168,6 +168,7 @@
   if (!candidate) {
     title.textContent = "Send interview invitation";
     form.hidden = true;
+    recap.hidden = true;
     FirstPass.setNotice("Choose a candidate from search before sending an invitation.", "error");
     FirstPassUi.showNotice(document.getElementById("notice"));
     return;

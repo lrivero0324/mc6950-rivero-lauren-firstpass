@@ -1,21 +1,15 @@
 (function () {
-  FirstPassUi.showNotice(document.getElementById("notice"));
-
   const signInForm = document.getElementById("sign-in-form");
   const registerForm = document.getElementById("register-form");
-  const banner = document.getElementById("session-banner");
   const companyField = document.getElementById("company-field");
   const user = FirstPass.currentUser();
 
   if (user) {
-    banner.hidden = false;
-    banner.textContent = "";
-    banner.append(document.createTextNode("Signed in as " + user.name + ". "));
-    const cont = document.createElement("a");
-    cont.href = FirstPass.homePath();
-    cont.textContent = "Continue to FirstPass";
-    banner.append(cont);
+    location.replace(FirstPass.homePath());
+    return;
   }
+
+  FirstPassUi.showNotice(document.getElementById("notice"));
 
   function selectedRole() {
     const checked = registerForm.querySelector('input[name="role"]:checked');
@@ -53,12 +47,15 @@
     visual.style.marginTop = offset + "px";
   }
 
+  const authTabs = Array.prototype.slice.call(document.querySelectorAll('[role="tab"]'));
+
   function showAuthTab(selected) {
     document.body.dataset.authTab = selected;
-    document.querySelectorAll("[data-auth-tab]").forEach(function (item) {
+    authTabs.forEach(function (item) {
       const on = item.getAttribute("data-auth-tab") === selected;
       item.classList.toggle("is-active", on);
       item.setAttribute("aria-selected", on ? "true" : "false");
+      item.tabIndex = on ? 0 : -1;
     });
     document.querySelectorAll("[data-auth-panel]").forEach(function (panel) {
       panel.hidden = panel.getAttribute("data-auth-panel") !== selected;
@@ -66,11 +63,29 @@
     window.requestAnimationFrame(lockAuthVisual);
   }
 
-  document.querySelectorAll("[data-auth-tab]").forEach(function (tab) {
+  authTabs.forEach(function (tab) {
     tab.addEventListener("click", function () {
       showAuthTab(tab.getAttribute("data-auth-tab"));
     });
   });
+
+  const tablist = document.querySelector('[role="tablist"]');
+  if (tablist) {
+    tablist.addEventListener("keydown", function (event) {
+      const current = authTabs.indexOf(document.activeElement);
+      if (current < 0) return;
+      let next = current;
+      if (event.key === "ArrowRight" || event.key === "ArrowDown") next = current + 1;
+      else if (event.key === "ArrowLeft" || event.key === "ArrowUp") next = current - 1;
+      else if (event.key === "Home") next = 0;
+      else if (event.key === "End") next = authTabs.length - 1;
+      else return;
+      event.preventDefault();
+      next = (next + authTabs.length) % authTabs.length;
+      showAuthTab(authTabs[next].getAttribute("data-auth-tab"));
+      authTabs[next].focus();
+    });
+  }
 
   const initialTab = document.querySelector("[data-auth-tab].is-active");
   showAuthTab(initialTab ? initialTab.getAttribute("data-auth-tab") : "signin");
