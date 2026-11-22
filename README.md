@@ -4,7 +4,7 @@ FirstPass is an employer-first career platform. Candidates create professional p
 
 This repository is the project home for FirstPass, developed by Lauren A. Rivero for MMC 6950: Capstone: Web Design and Online Communication at the University of Florida.
 
-Live site: LIVE_SITE_URL
+Live site: [FirstPass Official Site](https://lrivero0324.github.io/mc6950-rivero-lauren-firstpass/)
 
 ## Why it exists
 
